@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📰 HN Explorer — Next.js + Jest/RTL + MSW + Cypress
 
-## Getting Started
+**Hacker News arama & detay** mini uygulaması.  
+Bu repo **test ekosistemini öğrenmek** için tasarlandı:
 
-First, run the development server:
+- **Unit & Integration** → Jest + React Testing Library + MSW
+- **E2E** → Cypress (network intercept: başarı + hata senaryoları)
+- **CI** → GitHub Actions (coverage eşikleri + headless E2E)
+
+> Amaç: Gerçekçi bir akış (arama, sayfalama, detay) üzerinde **deterministik** ve **bakımı kolay** test stratejisi kurmak.
+
+---
+
+## 🎯 Amaç
+
+- Jest, RTL, MSW, Cypress gibi **test araçlarını öğrenmek**
+- **Test piramidi** kurmak → Unit → Integration → E2E
+- **Gerçekçi senaryolar**: arama, hata state, debounce, race guard, pagination, detay sayfası
+- CI ve coverage eşikleri ile **kalite barını ölçmek**
+
+---
+
+## 🔧 Teknoloji Yığını
+
+- **Next.js (App Router)** + **TypeScript** + **TailwindCSS**
+- **Jest** (runner) + **React Testing Library** (jest-dom, user-event)
+- **MSW (Mock Service Worker)** → Jest ortamında network mocking
+- **Cypress** → Uçtan uca testler (tarayıcı)
+- **GitHub Actions** + **wait-on** → CI’da build → start → URL hazır → Cypress run
+
+---
+
+## 🚀 Kurulum
+
+Gereksinimler: **Node.js ≥ 18**
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Komut                | Açıklama                                |
+| -------------------- | --------------------------------------- |
+| `npm run dev`        | Lokal geliştirme sunucusu               |
+| `npm run build`      | Production build                        |
+| `npm run start`      | Production server                       |
+| `npm test`           | Jest unit/integration testleri          |
+| `npm run test:watch` | Jest watch modu                         |
+| `npm run test:cov`   | Jest coverage raporu                    |
+| `npm run cy:open`    | Cypress GUI başlatır                    |
+| `npm run cy:run`     | Cypress headless koşar                  |
+| `npm run ci:test`    | CI’da Jest + coverage (tek proseste)    |
+| `npm run ci:e2e`     | CI’da build → start → wait-on → Cypress |
