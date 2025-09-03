@@ -1,0 +1,14 @@
+{
+  "hits": [
+    {
+      "objectID": "999",
+      "title": "React for Professionals",
+      "url": "https://example.com/react-pro",
+      "points": 123,
+      "author": "someone",
+      "num_comments": 42
+    }
+  ],
+  "page": 0,
+  "nbPages": 1
+}
