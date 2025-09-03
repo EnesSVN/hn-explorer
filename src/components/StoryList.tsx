@@ -6,6 +6,7 @@ import StoryCard from "./StoryCard";
 
 export default function StoryList() {
   const [rawQ, setRawQ] = useState("react");
+  const [page, setPage] = useState(0);
   const q = useDebouncedValue(rawQ, 300);
 
   const [hits, setHits] = useState<HnHit[]>([]);
@@ -17,7 +18,7 @@ export default function StoryList() {
     setLoading(true);
     setError(null);
 
-    searchStories(q)
+    searchStories(q, page)
       .then((res) => {
         if (!active) return;
         setHits(res.hits);
@@ -28,7 +29,7 @@ export default function StoryList() {
     return () => {
       active = false;
     };
-  }, [q]);
+  }, [q, page]);
 
   const content = useMemo(() => {
     if (loading) return <p role="status">Loading...</p>;
@@ -59,6 +60,26 @@ export default function StoryList() {
         onChange={(e) => setRawQ(e.target.value)}
       />
       {content}
+
+      <div className="flex items-center gap-2">
+        <button
+          className="border rounded px-3 py-1 disabled:opacity-50 cursor-pointer"
+          onClick={() => setPage((p) => Math.max(0, p - 1))}
+          disabled={page === 0 || loading}
+          aria-label="Prev Page"
+        >
+          Prev
+        </button>
+        <span className="text-sm opacity-70">Page: {page + 1}</span>
+        <button
+          className="border rounded px-3 py-1 cursor-pointer"
+          onClick={() => setPage((p) => p + 1)}
+          disabled={loading}
+          aria-label="Next Page"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
